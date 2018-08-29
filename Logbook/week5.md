@@ -4,7 +4,7 @@
 - Presented several approaches for recommendations, will work with the Python implementation described in following articles and sources:
   - **TODO: Shah, please insert links**
 - We are still selecting the dataset that we will operate (TODO change)
-  - **TODO: Shah, please insert link to the final decision **
+  - **TODO: Shah, please insert link to the final decision**
 - Shweta will be joining the team
 
 ## Next Week
