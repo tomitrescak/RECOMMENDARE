@@ -27,4 +27,4 @@ NOTE: The "bubble" approach is just a proposal and is a subject to change.
 2. Classify (supervised, probably not) or clusterise (unsupervised, probably yes) the data to create categories for recommendations
 3. Implement visual system that can interact with the model
 
-[Next](week5)
+[Next](week5.md)

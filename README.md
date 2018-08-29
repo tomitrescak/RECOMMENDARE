@@ -10,4 +10,4 @@ The objective of this project is to deliver a recommended systems framework endo
 
 We believe that outcomes of this project will have significant impact on target domains. Our frameworks will allow to develop or augment existing complex decision making and monitoring systems.
 
-[Next](Logbook/week1)
+[Next](Logbook/week1.md)
