@@ -1,5 +1,12 @@
 # RECOMMENDARE
 
+# Project Diary
+
+- [Week 1](Logbook/week1.md)
+- [Week 5](Logbook/week5.md)
+
+# Introduction
+
 The 4th industrial revolution is powered by the latest research in Artificial Intelligence (AI), Computer Vision and Machine Learning (ML). Increasing amount of businesses employ ML to help them analyse current trends and predict future trends or to help their customers with provided services. Unfortunately, due to the complexity of most machine learning approaches, it is not possible to access or understand why a machine took a given decision based on its inputs (i.e. black box approach). Without a clear understanding, it is hard to incorporate user knowledge and achieve a better learning performance. Moreover, when users are not able to verify and challenge the decision process, it reduces trust and compliance of such system, limiting the application in critical fields, such as medicine, law or public service. For example, in medicine, the disease identification and diagnosis of ailments are at the forefront of machine learning research, yet even with current efforts the challenge of how to interpret the decisions taken by ML systems
 
 remains. As a result, academics, as well as mass media, often report that doctors can now operate with high precision prediction systems for automated diagnosis, but only rarely they choose to fully trust them. The key challenge is to design a visual explanation mechanism tightly integrated into a machine learning model, yet applicable to various machine learning techniques in different domains. Such a mechanism will allow interpretation of complex intermediary data (i.e. evidence) created and processed by an ML system and let users understand system decisions based on the presented evidence. Users should be able to manipulate evidence using interactive visualisations to participate in the ML process.
