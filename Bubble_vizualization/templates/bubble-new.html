@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Resize visualization</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <style>
+        .ui-widget-content { 
+         width: 150px; 
+         height: 150px; 
+         float: left;
+         background:#5DADE2;
+         color: white;
+         border-radius: 50%;
+         margin: 0 1% 1% 0;
+         }
+		 .ui-widget-content:hover {
+		 background: #1A5276;
+		 }
+         .ui-widget-content h3 {
+         padding:33% 0;  
+         text-align: center;
+         font-family: Helvetica, Arial Black, sans;
+         }
+		 .ui-widget-content p {
+         padding:33% 0;  
+         text-align: center;
+         font-family: Helvetica, Arial Black, sans;
+         }
+		 
+		table {
+			font-family: arial, sans-serif;
+			border-collapse: collapse;
+			width: 100%;
+		}
+
+		td, th {
+			border: 1px solid #dddddd;
+			text-align: left;
+			padding: 8px;
+		}
+
+    </style>
+
+    <script>
+        $( function() {
+			//Key is div-id
+			var inits = {};   //Initial Areas
+			var finals = {};  //Final Areas
+			var diff = {};    //Change in Areas
+			var score = {};   //Score
+    		$(divs).each(function(){
+			
+				var id=$(this).attr('id');
+				var init_id=id+"_init";
+				var final_id=id+"_final";
+				
+				//Makes Resizable
+    			$(this).resizable();
+				
+				//Initial
+				var area =  parseInt($(this).width())* parseInt($(this).height());
+				inits[id]=area;
+				finals[id]=area;
+				diff[id]=0;
+				
+				//Display
+				document.getElementById(init_id).innerHTML=inits[id];
+				document.getElementById(final_id).innerHTML=finals[id];
+				
+				//On Resize
+    			$(this).resize(function() {
+					
+					var idr=$(this).attr('id');
+					var diff_idr=idr+"_diff";
+					var final_idr=idr+"_final";
+					
+					//Display Last Resized
+    				document.getElementById("id").innerHTML = idr;
+    				document.getElementById("w").innerHTML = $(this).width();
+    				document.getElementById("h").innerHTML = $(this).height();
+					
+					var new_area = parseInt($(this).width()) * parseInt($(this).height());
+					document.getElementById("a").innerHTML = new_area;
+						finals[idr]=new_area;
+					document.getElementById(final_idr).innerHTML=finals[idr];
+					
+					var diff_area = parseInt(new_area)-parseInt(inits[idr]); //Change in Area
+						diff[idr]=diff_area;
+					document.getElementById(diff_idr).innerHTML = diff[idr];
+					
+					
+					var sorted2 = [];
+    				for (var k in diff) {
+    					sorted2.push([k, diff[k]]);
+    				}
+					//Sort
+    				sorted2.sort(function(a, b) {
+    				return a[1] - b[1];
+    				});
+					
+					var sorted_final = [];
+    				for (var k in finals) {
+    					sorted_final.push([k, finals[k]]);
+    				}
+					//Sort
+    				sorted_final.sort(function(a, b) {
+    				return a[1] - b[1];
+    				});
+					
+					//  Extracting Last value from array sorted_final
+					var len = sorted_final.length;
+					var y = sorted_final[len-1].toString();
+					var a = y.split(",");
+					var z = a[1];
+					
+					// loop for last value in sorted_final
+					/*
+					for (var i in sorted_final){
+					var x = sorted_final[i].toString();
+					x = x.split(",");
+					x = x[1];
+					}
+					*/
+					
+					//Scoring
+					for (var k in sorted_final) {
+    					var dd = sorted_final[k].toString();
+						dd = dd.split(",");
+						did = dd[0];
+						val = dd[1];
+						score[did]=parseFloat(val/z).toFixed(2);
+						//document.getElementById("try").innerHTML = y;
+						var score_id=did+"_score";
+						document.getElementById(score_id).innerHTML = score[did];
+    				}
+					document.getElementById("seq").innerHTML = sorted_final.reverse();
+    			});
+    		});
+		});
+    </script>
+</head>
+
+<body>
+    <div id="bubbles">
+</div>
+    <div style="clear:both">
+        <br><br>
+        <p><b>Div <span id="id">0</span> Resized.</b></p>
+        <p><b>Width : <span id="w">0</span></b></p>
+        <p><b>Height : <span id="h">0</span></b></p>
+		<p><b>Area : <span id="a">0</span></b></p>
+        
+        <table>
+            <tr id="dnames">
+                <th>Div</th>
+
+
+            </tr>
+            <tr id="dinitials">
+                <th>Initial Area</th>
+
+            </tr>
+            <tr id="dfinals">
+                <th>Final Area</th>
+
+            </tr>
+			<tr id="ddiff">
+                <th>Difference</th>
+
+            </tr>
+			<tr id="dscore">
+                <th>Score</th>
+
+            </tr>
+        </table>
+		
+		<p><b>Final sequence : <span id="seq"></span></b></p>
+		<!--
+		<p><b>Key : <span id="try"></span></b></p>
+		<p><b>Value : <span id="dict"></span></b></p>
+		-->
+		
+    </div>
+	<!-- IDs -->
+	<script>
+
+		function htmlDecode(input){
+		  var e = document.createElement('div');
+		  e.innerHTML = input;
+		  // handle case of empty input
+		  return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+		}
+		
+		var divs='#d1';
+		var max_id='{{len_}}';
+    	for (i = 2; i <=max_id; i++) { 
+    		var id="#d"+i;
+    		divs=divs+","+id;
+
+    	};
+		
+		var scores_db = htmlDecode("{{dict_}}");
+		//var scores_db = '{{dict_}}';
+		var scores_obj = JSON.parse(scores_db);
+		
+		
+		var ii=1;
+		for(var k in scores_obj){
+			var score = scores_obj[k];
+			var size = (score*150)+50;
+
+			document.getElementById("bubbles").innerHTML +='<div id="d'+ ii+ '" class="ui-widget-content">' + '<p>'+ k+ '</p> +</div>';
+			document.getElementById("dnames").innerHTML +='<td id="d'+ii+'_name">'+k+'</th>\n';
+			document.getElementById("dinitials").innerHTML +='<td id="d'+ii+'_init">'+0+'</th>\n';
+			document.getElementById("dfinals").innerHTML +='<td id="d'+ii+'_final">'+0+'</th>\n';
+			document.getElementById("ddiff").innerHTML +='<td id="d'+ii+'_diff">'+0+'</th>\n';
+			document.getElementById("dscore").innerHTML +='<th id="d'+ii+'_score">'+0+'</th>\n';
+
+			var iid="#d"+ii;
+			var d_name = "d"+ii+"_name";
+			$(iid).width(size);
+			$(iid).height(size);
+			
+			//$(iid).height()=size;
+			ii++;
+			document.getElementById(d_name).innerHTML = k;
+			
+		}
+		/*
+		for (var v in scores_db){
+		var value = scores_db[v];
+		document.getElementById("try").innerHTML = value;
+		//document.getElementById("dict").innerHTML = v;
+		
+		};
+		*/
+		
+    </script>
+</body>
+
+</html>
